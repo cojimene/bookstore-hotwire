@@ -1,0 +1,31 @@
+<%= turbo_frame_tag 'new_record_component' do %>
+  <div>
+    <%= form_with model: book, class: 'flex w-full items-center gap-2',
+      data: {controller: 'forms', action: 'submit->forms#resetComponent'} do |f| %>
+
+      <% if book.errors.any? %>
+        <div class="text-red-500 errors">
+          <%= book.errors.map { |e| e.full_message }.join(', ') %>
+        </div>
+      <% end %>
+
+      <div class="flex items-center gap-2">
+        <%= f.label :name, class: 'font-semibold text-white' %>
+        <%= f.text_field :name, class: 'font-semibold rounded p-2 text-xs' %>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <%= f.label :price, class: 'font-semibold text-white' %>
+        <%= f.number_field :price, in: (1.0..100.0), step: :any,
+          class: 'font-semibold rounded p-2 text-xs' %>
+      </div>
+
+      <div class="flex items-center gap-2 ml-5 justify-end">
+        <%= f.submit class: 'font-semibold p-2 bg-sky-600 text-sm text-white rounded cursor-pointer' %>
+
+        <%= link_to 'Cancel', :back,
+          class: 'font-semibold p-2 bg-red-600 text-sm text-white rounded' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

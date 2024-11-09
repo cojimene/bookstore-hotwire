@@ -1,0 +1,38 @@
+<%= turbo_frame_tag 'new_record_component' do %>
+  <div>
+    <%= form_with model: sell, class: 'flex w-full items-center gap-2' do |f| %>
+
+      <% if sell.errors.any? %>
+        <div class="text-red-500 errors">
+          <%= sell.errors.map { |e| e.full_message }.join(', ') %>
+        </div>
+      <% end %>
+
+      <div class="flex items-center gap-2">
+        <%= f.label :book_id, class: 'font-semibold text-white' %>
+
+        <%= f.collection_select :book_id, Book.order(:name), :id, :name, {include_blank: true},
+          class: 'font-semibold rounded p-2 text-xs' %>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <%= f.label :day, class: 'font-semibold text-white' %>
+
+        <%= f.select :day, Sell::DAYS, {include_blank:true},
+          class: 'font-semibold rounded p-2 text-xs' %>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <%= f.label :quantity, class: 'font-semibold text-white' %>
+        <%= f.number_field :quantity, in: (1..999), class: 'font-semibold rounded p-2 text-xs' %>
+      </div>
+
+      <div class="flex items-center gap-2 ml-5 justify-end">
+        <%= f.submit class: 'font-semibold p-2 bg-sky-600 text-sm text-white rounded cursor-pointer' %>
+
+        <%= link_to 'Cancel', :back,
+          class: 'font-semibold p-2 bg-red-600 text-sm text-white rounded' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

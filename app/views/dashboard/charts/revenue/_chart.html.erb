@@ -1,0 +1,27 @@
+<div data-controller="revenue" data-revenue-sells="<%= revenue_from_sells %>" id="revenue_chart">
+  <canvas id="revenueSells" style="width:100%;max-width:700px"></canvas>
+
+  <div class="bg-white rounded flex flex-col my-5 mx-3 p-2">
+    <h5 class="font-bold text-center text-xl mt-2">Sells by book</h5>
+
+    <table class="my-5">
+      <thead>
+        <th class="border-2">ID</th>
+        <th class="border-2">Name</th>
+        <th class="border-2">Revenue</th>
+      </thead>
+
+      <tbody>
+        <% Book.joins(:sells).group(:id, :name).sum(:total).each do |(id, name), revenue| %>
+          <tr>
+            <td class="border-2 text-center"><%= id %></td>
+            <td class="border-2 text-center"><%= name %></td>
+            <td class="border-2 text-center"><%= number_to_currency(revenue) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <h3 class="font-semibold">Total: <%= number_to_currency(Sell.sum(:total)) %></h3>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div data-controller="books" data-book-sells="<%= latest_sells(book) %>"
+  data-book-id="<%= book.id %>" class="text-white" id="book_<%= book.id %>_chart">
+
+  <h3 class="text-white text-center mt-2"><%= book.name %></h3>
+
+  <canvas id="bookChart-<%= book.id %>" style="width:100%;max-width:700px"></canvas>
+</div>
